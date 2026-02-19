@@ -1,8 +1,0 @@
-{"t":0,"agent":"system","event":"keyword_detected","keyword":"ralplan"}
-{"t":0,"agent":"a83f770","agent_type":"unknown","event":"agent_stop","success":true}
-{"t":0,"agent":"a436366","agent_type":"planner","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a436366","agent_type":"planner","event":"agent_stop","success":true,"duration_ms":70128}
-{"t":0,"agent":"a717076","agent_type":"critic","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a717076","agent_type":"critic","event":"agent_stop","success":true,"duration_ms":72236}
-{"t":0,"agent":"a952070","agent_type":"architect","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"aecc720","agent_type":"unknown","event":"agent_stop","success":true}

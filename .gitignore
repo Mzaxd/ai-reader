@@ -34,3 +34,12 @@ temp/
 
 # Local temp assets
 tmp_*.css
+
+# OMC state files (session temporaries)
+.omc/state/*.jsonl
+.omc/state/checkpoints/
+.omc/state/sessions/
+.omc/state/hud-state.json
+.omc/state/subagent-tracking.json
+.omc/sessions/
+.omc/prototypes/
