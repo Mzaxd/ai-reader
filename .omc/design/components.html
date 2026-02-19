@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Reader Components (Plan Aligned)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body { margin: 0; min-height: 100vh; }
+    .shell { max-width: 1120px; margin: 0 auto; padding: 12px; display: grid; gap: 10px; }
+    .top { border: var(--md-border-strong); border-radius: 10px; background: var(--md-surface-1); padding: 10px 12px; display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .top h1 { margin: 0; font-size: 22px; }
+    .section { border: var(--md-border-strong); border-radius: 10px; background: var(--md-surface-1); overflow: hidden; }
+    .head { border-bottom: var(--md-border-strong); padding: 9px 11px; }
+    .head h2 { margin: 0; font-size: 19px; }
+    .head p { margin: 2px 0 0; font-size: 13px; color: var(--md-ink-soft); }
+    .body { padding: 10px; display: grid; gap: 8px; }
+    .g2,.g3,.g4 { display: grid; gap: 8px; }
+    .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .demo { border: var(--md-border-soft-line); border-radius: 8px; background: var(--md-surface-1); padding: 8px; display: grid; gap: 6px; }
+    .k { font-family: var(--font-ui); font-size: 11px; text-transform: uppercase; color: var(--md-ink-soft); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .swatch { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+    .swatch-item { border: var(--md-border-strong); border-radius: 8px; overflow: hidden; }
+    .swatch-item b { display: block; height: 46px; border-bottom: var(--md-border-strong); }
+    .swatch-item span { display: block; padding: 6px; font: 11px var(--font-ui); text-transform: uppercase; }
+    .table { border: var(--md-border-strong); border-radius: 8px; overflow: hidden; }
+    .th,.tr { display: grid; grid-template-columns: 1.5fr .9fr .8fr .8fr; gap: 6px; padding: 8px 9px; font-size: 13px; align-items: center; }
+    .th { border-bottom: var(--md-border-strong); font-family: var(--font-ui); text-transform: uppercase; background: var(--md-surface-3); }
+    .tr + .tr { border-top: var(--md-border-soft-line); }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--md-ink); margin-right: 6px; vertical-align: middle; }
+    .dot-on { background: var(--md-success); } .dot-warn { background: var(--md-warning); }
+    .tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+    .tab { border: var(--md-border-strong); border-radius: 6px; background: var(--md-surface-1); padding: 7px; text-align: center; font: 11px var(--font-ui); text-transform: uppercase; }
+    .tab.active { background: var(--md-sun); }
+    .chat { border: var(--md-border-strong); border-radius: 8px; min-height: 280px; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; }
+    .chat .h { border-bottom: var(--md-border-strong); padding: 8px 9px; }
+    .chat .b { background: var(--md-surface-2); padding: 8px; display: grid; gap: 6px; align-content: start; overflow: auto; }
+    .chat .f { border-top: var(--md-border-strong); padding: 8px; display: grid; gap: 8px; }
+    .bubble { border: var(--md-border-strong); border-radius: 8px; padding: 8px; font-size: 14px; background: var(--md-surface-1); max-width: 92%; }
+    .bubble.ai { background: color-mix(in srgb, var(--md-sky) 24%, var(--md-surface-1)); }
+    .bubble.user { background: color-mix(in srgb, var(--md-sun) 34%, var(--md-surface-1)); justify-self: end; }
+    .state { border: var(--md-border-strong); border-radius: 8px; padding: 8px; font-size: 14px; }
+    .empty { background: var(--md-surface-3); }
+    .error { background: color-mix(in srgb, var(--md-danger) 18%, var(--md-surface-1)); border-color: var(--md-danger); }
+    .loading { background: color-mix(in srgb, var(--md-warning) 22%, var(--md-surface-1)); }
+    .modal-mask { position: fixed; inset: 0; background: rgba(16, 19, 24, 0.36); display: none; align-items: center; justify-content: center; padding: 12px; z-index: 120; }
+    .modal-mask.active { display: flex; }
+    .modal { width: min(680px, 94vw); border: var(--md-border-strong); border-radius: 10px; background: var(--md-surface-1); overflow: hidden; box-shadow: var(--md-shadow-float); }
+    .modal .h { border-bottom: var(--md-border-strong); padding: 9px 11px; font-family: var(--font-ui); font-size: 13px; text-transform: uppercase; }
+    .modal .b { padding: 10px 11px; }
+    .modal .f { border-top: var(--md-border-strong); padding: 10px 11px; display: flex; justify-content: flex-end; gap: 8px; }
+    .toast-wrap { position: fixed; right: 12px; top: 12px; width: min(320px, 88vw); display: grid; gap: 8px; z-index: 140; }
+    .toast { border: var(--md-border-strong); border-radius: 8px; background: var(--md-surface-1); padding: 8px; box-shadow: var(--md-shadow-lift); }
+    @media (max-width: 900px) { .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .swatch { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 700px) { .g2,.g3,.g4,.swatch,.tabs { grid-template-columns: 1fr; } .th,.tr { grid-template-columns: 1.4fr .8fr .8fr; } .th > :last-child,.tr > :last-child { display: none; } }
+  </style>
+</head>
+<body class="md-noise">
+  <div class="shell">
+    <header class="top">
+      <h1>计划对齐组件库</h1>
+      <div class="row">
+        <button class="md-btn" id="themeBtn">Theme</button>
+        <button class="md-btn md-btn-primary" id="openModalBtn">Open Confirm Modal</button>
+        <button class="md-btn md-btn-accent" id="toastBtn">Show Toast</button>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="head"><h2>基础样式</h2><p>颜色、按钮、输入、状态点（计划通用组件）。</p></div>
+      <div class="body">
+        <div class="swatch">
+          <div class="swatch-item"><b style="background:#383838"></b><span>#383838</span></div>
+          <div class="swatch-item"><b style="background:#ffffff"></b><span>#ffffff</span></div>
+          <div class="swatch-item"><b style="background:#f8f8f7"></b><span>#f8f8f7</span></div>
+          <div class="swatch-item"><b style="background:#6fc2ff"></b><span>#6fc2ff</span></div>
+          <div class="swatch-item"><b style="background:#ffde00"></b><span>#ffde00</span></div>
+          <div class="swatch-item"><b style="background:#ff9538"></b><span>#ff9538</span></div>
+        </div>
+        <div class="g3">
+          <article class="demo"><span class="k">Buttons</span><div class="row"><button class="md-btn md-btn-primary">Primary</button><button class="md-btn md-btn-accent">Accent</button><button class="md-btn">Default</button></div></article>
+          <article class="demo"><span class="k">Inputs</span><input class="md-input" placeholder="搜索..."><textarea class="md-textarea" placeholder="输入问答内容..."></textarea></article>
+          <article class="demo"><span class="k">Status</span><div><span class="dot dot-on"></span>Connected</div><div><span class="dot dot-on"></span>Encrypted Storage</div><div><span class="dot dot-warn"></span>Offline Queue</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="head"><h2>计划核心组件</h2><p>导入、任务队列、分析标签、问答区。</p></div>
+      <div class="body">
+        <div class="table">
+          <div class="th"><span>任务</span><span>状态</span><span>进度</span><span>更新时间</span></div>
+          <div class="tr"><span>三体.epub 导入</span><span><span class="dot dot-warn"></span>进行中</span><span>72%</span><span>14:58</span></div>
+          <div class="tr"><span>白夜行.txt 编码检测</span><span><span class="dot dot-on"></span>完成</span><span>100%</span><span>14:56</span></div>
+          <div class="tr"><span>红楼梦 时间线分析</span><span><span class="dot dot-warn"></span>离线队列</span><span>-</span><span>待提交</span></div>
+        </div>
+        <div class="tabs">
+          <div class="tab active">Q&A</div>
+          <div class="tab">人物</div>
+          <div class="tab">时间线</div>
+          <div class="tab">事件</div>
+          <div class="tab">模板</div>
+          <div class="tab">历史</div>
+        </div>
+        <div class="chat">
+          <div class="h">AI 问答 + 引用定位</div>
+          <div class="b" id="chatBody">
+            <article class="bubble ai">这章核心冲突是技术执行链与战略后果平衡。</article>
+            <article class="bubble user">为什么 ETO 在这里改口？</article>
+          </div>
+          <div class="f">
+            <textarea class="md-textarea" id="chatInput" placeholder="继续追问（支持引用定位）..."></textarea>
+            <div class="row"><span class="md-chip">Token Est: 1.8k</span><button class="md-btn md-btn-primary" id="chatSend">Send</button></div>
+          </div>
+        </div>
+        <div class="g2">
+          <article class="demo">
+            <span class="k">Timeline Controls</span>
+            <div class="row">
+              <select class="md-select" style="max-width:180px;"><option>垂直时间线</option><option>水平时间线</option></select>
+              <input type="range" min="1" max="4" step="1" value="2" style="max-width:200px;">
+            </div>
+          </article>
+          <article class="demo">
+            <span class="k">AI Pane Toggle</span>
+            <div class="row">
+              <button class="md-btn">Collapse</button>
+              <span class="md-chip">Ctrl/Cmd + \</span>
+              <span class="md-chip">Reader Linked</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="head"><h2>状态组件</h2><p>空态 / 错误态 / 加载态（计划验收体验项）。</p></div>
+      <div class="body">
+        <div class="g3">
+          <article class="state empty"><strong>Empty</strong><br>当前没有匹配结果。</article>
+          <article class="state error"><strong>Error</strong><br>章节切分失败，请重试。</article>
+          <article class="state loading"><strong>Loading</strong><br>正在生成向量索引...</article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="h">高成本操作确认</div>
+      <div class="b">本次请求预计超出单次成本阈值，是否继续？</div>
+      <div class="f">
+        <button class="md-btn" id="cancelModalBtn">Cancel</button>
+        <button class="md-btn md-btn-primary" id="confirmModalBtn">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    const root = document.documentElement;
+    const modalMask = document.getElementById('modalMask');
+    const toastWrap = document.getElementById('toastWrap');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+
+    const toast = (title, msg) => {
+      const node = document.createElement('article');
+      node.className = 'toast';
+      node.innerHTML = `<strong>${title}</strong><div>${msg}</div>`;
+      toastWrap.appendChild(node);
+      setTimeout(() => {
+        node.style.opacity = '0';
+        node.style.transform = 'translateY(-6px)';
+        setTimeout(() => node.remove(), 260);
+      }, 2200);
+    };
+
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    });
+
+    document.getElementById('openModalBtn').addEventListener('click', () => modalMask.classList.add('active'));
+    document.getElementById('cancelModalBtn').addEventListener('click', () => modalMask.classList.remove('active'));
+    document.getElementById('confirmModalBtn').addEventListener('click', () => {
+      modalMask.classList.remove('active');
+      toast('已确认', '继续执行高成本请求。');
+    });
+    modalMask.addEventListener('click', (e) => {
+      if (e.target === modalMask) modalMask.classList.remove('active');
+    });
+
+    document.getElementById('toastBtn').addEventListener('click', () => {
+      toast('同步完成', '组件库已按计划对齐。');
+    });
+
+    document.getElementById('chatSend').addEventListener('click', () => {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      const user = document.createElement('article');
+      user.className = 'bubble user';
+      user.textContent = text;
+      chatBody.appendChild(user);
+      const ai = document.createElement('article');
+      ai.className = 'bubble ai';
+      ai.textContent = '已记录问题，并附带引用定位链接。';
+      chatBody.appendChild(ai);
+      chatInput.value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
+  </script>
+</body>
+</html>

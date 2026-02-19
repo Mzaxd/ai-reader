@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>书库 - AI Reader 原型</title>
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <script src="../assets/prototype.js" defer></script>
+</head>
+<body class="page-library">
+  <div class="shell">
+    <header class="topbar"><div class="brand"><span class="brand-mark">册</span>AI Reader / 书库</div><span class="status" data-network>在线可用</span></header>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="nav-title">主导航</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav-link href="../index.html">总览</a><a class="nav-link" data-nav-link href="library.html">书库首页</a><a class="nav-link" data-nav-link href="reader.html">阅读器</a><a class="nav-link" data-nav-link href="characters.html">人物关系</a><a class="nav-link" data-nav-link href="timeline.html">时间线</a><a class="nav-link" data-nav-link href="events.html">事件分析</a><a class="nav-link" data-nav-link href="chat.html">AI问答</a><a class="nav-link" data-nav-link href="settings.html">模型接入</a>
+        </nav>
+      </aside>
+      <main class="main">
+        <section class="page-head">
+          <div>
+            <h1>书库</h1>
+            <p>导入、管理、继续阅读在同一页面完成，不再跳转到单独导入页。</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" data-open-import>+ 导入新书</button>
+            <a class="btn btn-ghost" href="reader.html">继续阅读</a>
+          </div>
+        </section>
+
+        <section class="metric-strip">
+          <div class="metric-chip">已导入<strong>27 本</strong></div>
+          <div class="metric-chip">分析中<strong>3 本</strong></div>
+          <div class="metric-chip">缓存健康<strong>89%</strong></div>
+        </section>
+
+        <section class="bookshelf-section card" style="margin-top:12px">
+          <div class="bookshelf-head">
+            <h3>我的书架</h3>
+            <div class="btn-row">
+              <button class="btn btn-ghost" type="button" data-open-import>导入文件</button>
+              <a class="btn btn-flat" href="reader.html">打开最近阅读</a>
+            </div>
+          </div>
+          <div class="bookshelf-grid">
+            <article class="book-card">
+              <div class="book-cover tone-1"><span>三体</span></div>
+              <div class="book-meta"><strong>《三体》</strong><span>刘慈欣 · EPUB</span></div>
+              <div class="meter"><span style="width:42%"></span></div>
+              <div class="book-actions"><a class="btn btn-primary" href="reader.html">继续阅读</a></div>
+            </article>
+            <article class="book-card">
+              <div class="book-cover tone-2"><span>明朝</span></div>
+              <div class="book-meta"><strong>《明朝那些事儿》</strong><span>当年明月 · TXT</span></div>
+              <div class="meter"><span style="width:73%"></span></div>
+              <div class="book-actions"><a class="btn btn-ghost" href="reader.html">查看</a></div>
+            </article>
+            <article class="book-card">
+              <div class="book-cover tone-3"><span>活着</span></div>
+              <div class="book-meta"><strong>《活着》</strong><span>余华 · EPUB</span></div>
+              <div class="meter"><span style="width:31%"></span></div>
+              <div class="book-actions"><a class="btn btn-ghost" href="reader.html">查看</a></div>
+            </article>
+            <article class="book-card">
+              <div class="book-cover tone-4"><span>白夜</span></div>
+              <div class="book-meta"><strong>《白夜行》</strong><span>东野圭吾 · EPUB</span></div>
+              <div class="meter"><span style="width:12%"></span></div>
+              <div class="book-actions"><a class="btn btn-ghost" href="reader.html">查看</a></div>
+            </article>
+            <article class="book-card">
+              <div class="book-cover tone-5"><span>沙丘</span></div>
+              <div class="book-meta"><strong>《沙丘》</strong><span>Frank Herbert · DOCX</span></div>
+              <div class="meter"><span style="width:64%"></span></div>
+              <div class="book-actions"><a class="btn btn-ghost" href="reader.html">查看</a></div>
+            </article>
+            <article class="book-card">
+              <div class="book-cover tone-6"><span>基地</span></div>
+              <div class="book-meta"><strong>《基地》</strong><span>Asimov · EPUB</span></div>
+              <div class="meter"><span style="width:55%"></span></div>
+              <div class="book-actions"><a class="btn btn-ghost" href="reader.html">查看</a></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="grid grid-2" style="margin-top:12px">
+          <article class="card">
+            <h3>最近活动</h3>
+            <ul class="list">
+              <li class="list-item"><span>《三体》 人物图谱已更新</span><span class="tag ok">刚刚</span></li>
+              <li class="list-item"><span>《活着》 时间线纠偏完成</span><span class="tag">12 分钟前</span></li>
+              <li class="list-item"><span>《白夜行》 解析失败 1 章</span><span class="tag alert">需处理</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>书库操作</h3>
+            <ul class="list">
+              <li class="list-item"><span>批量导入新文件</span><button class="btn btn-flat" type="button" data-open-import>打开</button></li>
+              <li class="list-item"><span>恢复上次阅读会话</span><a class="btn btn-flat" href="reader.html">进入</a></li>
+              <li class="list-item"><span>查看失败解析报告</span><a class="btn btn-flat" href="events.html">查看</a></li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" data-import-modal hidden>
+    <section class="import-modal" role="dialog" aria-modal="true" aria-labelledby="import-modal-title">
+      <header class="import-modal-head">
+        <h2 id="import-modal-title">导入到书库</h2>
+        <button class="btn btn-ghost" type="button" data-close-import>关闭</button>
+      </header>
+      <div class="import-modal-body">
+        <article class="soft-card">
+          <h3>第一步：选择文件</h3>
+          <div class="notice">支持 EPUB、TXT、DOC/DOCX。MOBI/AZW 为实验格式，失败时会提示转换。</div>
+          <ul class="list">
+            <li class="list-item"><span>《白夜行》.epub</span><span class="tag">18.4MB</span></li>
+            <li class="list-item"><span>《三国演义》.txt</span><span class="tag">UTF-8</span></li>
+            <li class="list-item"><span>《福尔摩斯》.mobi</span><span class="tag warn">实验格式</span></li>
+          </ul>
+        </article>
+        <article class="soft-card">
+          <h3>第二步：解析策略</h3>
+          <div class="form-grid">
+            <div class="field"><label>TXT 编码</label><select><option>自动检测（推荐）</option><option>UTF-8</option><option>GBK</option></select></div>
+            <div class="field"><label>章节识别规则</label><select><option>智能正则 + AI 校正</option><option>仅正则</option></select></div>
+            <div class="field"><label>超过 500KB 章节存储策略</label><select><option>存外部 chunk 文件</option><option>强制存数据库</option></select></div>
+          </div>
+        </article>
+      </div>
+      <footer class="import-modal-foot">
+        <button class="btn btn-primary" type="button" data-submit-import>开始导入</button>
+        <button class="btn btn-ghost" type="button" data-close-import>取消</button>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>
+
+
+

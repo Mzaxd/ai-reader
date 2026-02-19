@@ -1,0 +1,81 @@
+Generate a complete HTML page for "AI Reader Library Homepage" following these specifications:
+
+## Design System (MUST FOLLOW)
+
+- **Theme**: Light mode with warm yellow-orange accents
+- **Primary Colors**:
+  - Duck Yellow: #FFD93D
+  - Duck Orange: #FF8C42
+  - Background White: #FFFFFF
+  - Light Gray: #F5F5F5
+  - Card Background: #EAEAEA
+  - Border Gray: #E5E5E5
+  - Primary Text: #1A1A1A
+  - Secondary Text: #666666
+- **Typography**: Inter font family (use Google Fonts CDN)
+- **Buttons**: Gradient buttons (linear-gradient(135deg, #FFD93D, #FF8C42)), 12px border-radius
+- **Cards**: White cards with subtle shadows, 16px border-radius
+- **Animations**: Fade-in-up, float, and pulse-glow effects using CSS keyframes
+- **Style**: Flat cartoon illustration style, friendly and approachable
+
+## Page Structure
+
+### 1. Top Navigation Bar
+- Logo: "AI Reader" brand name with a cute duck icon (use emoji 🦆 or SVG)
+- Nav links: 书库 | 阅读 | 分析 | 设置
+- User avatar button (circular, use placeholder)
+- Background: White semi-transparent with blur effect (backdrop-filter)
+
+### 2. Hero Section
+- Large title: "你的智能书库" (font-size: 48px, font-weight: 700)
+- Subtitle: "AI 驱动的个性化阅读体验" (font-size: 18px, color: #666)
+- Search box: Large input with search icon, rounded corners
+- Reading duck illustration placeholder (use a decorative illustration or placeholder)
+- Scrolling text effect showing popular book categories
+
+### 3. Category Navigation
+- Horizontal scrollable cards
+- Categories: 全部 | 小说 | 科技 | 历史 | 心理学 | 商业 | 艺术
+- Active item uses yellow-orange gradient highlight
+
+### 4. Continue Reading Section
+- Section title: "继续阅读"
+- Horizontal scrolling book cards
+- Each card shows: cover image placeholder, book title, author, reading progress bar (gradient fill)
+- Hover effect: translateY(-4px) + enhanced shadow
+
+### 5. Recommended For You Section
+- Section title: "为你推荐"
+- Grid layout book cards (3 columns on desktop)
+- Each card: cover image, book title, author, star rating, "AI 推荐" tag (gradient background)
+- Cards have hover animation
+
+### 6. New Arrivals Section
+- Section title: "新书上架"
+- List style display
+- Small cover, title, author, brief description, "添加" button
+
+### 7. Footer
+- Simple footer with brand logo and copyright
+
+## CSS Requirements
+
+- Use CSS custom properties for colors
+- Add keyframe animations:
+  - `@keyframes fadeInUp` - for section entrance
+  - `@keyframes float` - for duck illustration
+  - `@keyframes pulse-glow` - for AI tags
+  - `@keyframes scrollText` - for scrolling categories
+- Add hover transitions on all interactive elements
+- Use Flexbox and CSS Grid for layouts
+- Make it responsive (desktop-first, include tablet breakpoints)
+
+## Visual Details
+
+- Book cards use white background + light gray border
+- Progress bars use yellow-orange gradient
+- AI tags use pulse-glow animation
+- Page load uses fade-in animation
+- Background has subtle grid pattern
+
+Generate a SINGLE complete HTML file with embedded CSS and minimal JavaScript (only for interactions if needed). Make it visually stunning and production-ready.

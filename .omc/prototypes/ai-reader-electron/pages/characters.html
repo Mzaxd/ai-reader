@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人物关系 - AI Reader 原型</title>
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <script src="../assets/prototype.js" defer></script>
+</head>
+<body class="page-characters page-split-workbench">
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">册</span>AI Reader / 人物关系</div>
+      <span class="status" data-network>在线可用</span>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="nav-title">主导航</div>
+        <nav class="nav">
+          <a class="nav-link" data-nav-link href="../index.html">总览</a><a class="nav-link" data-nav-link href="library.html">书库首页</a><a class="nav-link" data-nav-link href="reader.html">阅读器</a><a class="nav-link" data-nav-link href="characters.html">人物关系</a><a class="nav-link" data-nav-link href="timeline.html">时间线</a><a class="nav-link" data-nav-link href="events.html">事件分析</a><a class="nav-link" data-nav-link href="chat.html">AI问答</a><a class="nav-link" data-nav-link href="settings.html">模型接入</a>
+        </nav>
+      </aside>
+      <main class="main">
+        <section class="graph-grid" data-resizable-panel data-resize-key="characters" data-resize-default="308" data-resize-min="260" data-resize-max="500">
+          <section class="graph-stage">
+            <div class="rail-title"><span>关系舞台</span><span class="tag ok">节点 42 · 关系 138</span></div>
+            <div class="graph-canvas">
+              <svg class="graph-svg" viewBox="0 0 900 420" preserveAspectRatio="none" aria-hidden="true">
+                <path class="graph-link coop" d="M185,92 C290,75 360,112 455,140" />
+                <path class="graph-link conflict" d="M455,140 C530,145 590,112 690,88" />
+                <path class="graph-link family" d="M455,140 C430,210 470,268 515,320" />
+                <path class="graph-link coop" d="M185,92 C205,202 248,276 335,322" />
+                <path class="graph-link conflict" d="M335,322 C430,260 520,236 625,250" />
+                <path class="graph-link coop" d="M625,250 C676,220 716,172 760,130" />
+              </svg>
+              <div class="graph-node key" style="left:20%; top:21%;">汪淼</div>
+              <div class="graph-node key" style="left:51%; top:33%;">叶文洁</div>
+              <div class="graph-node" style="left:76%; top:20%;">史强</div>
+              <div class="graph-node" style="left:37%; top:78%;">丁仪</div>
+              <div class="graph-node" style="left:58%; top:78%;">杨冬</div>
+              <div class="graph-node" style="left:69%; top:58%;">申玉菲</div>
+              <div class="graph-node" style="left:83%; top:31%;">伊文斯</div>
+            </div>
+            <div class="legend-row">
+              <span class="tag ok">合作关系</span>
+              <span class="tag alert">冲突关系</span>
+              <span class="tag warn">亲属/血缘</span>
+              <span class="tag info">主线角色</span>
+            </div>
+          </section>
+
+          <div class="panel-splitter" data-panel-splitter role="separator" aria-label="调整侧边面板宽度" aria-orientation="vertical"></div>
+
+          <aside class="card">
+            <div class="btn-row" style="margin-bottom:8px">
+              <a class="btn btn-primary" href="#">查看冲突</a>
+              <a class="btn btn-ghost" href="events.html">关联事件</a>
+            </div>
+            <h3>修正与筛选</h3>
+            <div class="form-grid">
+              <div class="field"><label>别名合并</label><input value="叶老师 -> 叶文洁" /></div>
+              <div class="field"><label>关系类型</label><select><option>冲突</option><option>合作</option><option>亲属</option></select></div>
+              <div class="field"><label>关系强度 (0-1)</label><input value="0.84" /></div>
+              <div class="field"><label>来源章节</label><input value="第17章、第23章" /></div>
+              <div class="field"><label>关系备注</label><textarea rows="4">从试探性合作转向公开对抗，主要冲突来自价值观分裂。</textarea></div>
+            </div>
+            <div class="btn-row" style="margin-top:10px">
+              <a class="btn btn-primary" href="#">保存修正</a>
+              <a class="btn btn-ghost" href="#">导出 JSON</a>
+            </div>
+            <div class="insight-card" style="margin-top:10px">
+              <strong>高风险冲突提醒</strong>
+              <p>叶文洁 vs 伊文斯：冲突强度 0.88，建议在事件分析中标记为关键因果触发。</p>
+              <a class="btn btn-flat" href="events.html">去事件分析</a>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
